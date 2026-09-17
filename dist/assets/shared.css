@@ -24,3 +24,6 @@ body::before,body::after{z-index:0}.page{position:relative;z-index:1}
 /* Keep native date controls inside the mobile period card. */
 .date-filter>label,.date-filter>label input{min-width:0;max-width:100%}
 @media(max-width:520px){.date-filter{width:100%;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:8px;padding:10px}.date-filter>label{grid-template-columns:1fr;gap:5px;font-size:.78rem}.date-filter>label input{width:100%;padding-inline:10px;font-size:.92rem}}
+
+/* Date axis for the daily earnings chart. */
+.daily-chart{display:grid;grid-template-columns:repeat(var(--chart-days,31),minmax(0,1fr));align-items:stretch;gap:3px;height:250px}.day-column{min-width:0;display:grid;grid-template-rows:minmax(0,1fr) 22px;align-items:end}.day-column .bar{width:100%;min-width:0;display:block}.day-label{display:none;align-self:end;text-align:center;color:var(--muted);font-size:.58rem;line-height:1}.day-label.major{display:block}@media(min-width:721px){.day-label.wide{display:block}}
