@@ -33,3 +33,7 @@ body::before,body::after{z-index:0}.page{position:relative;z-index:1}
 
 /* Keep mobile scrolling and tab changes on the compositor-friendly path. */
 @media(max-width:720px){body::before,body::after{filter:none!important}.app-head,.bottom-nav,.catalog-controls,.modal::backdrop,.photo-viewer,.update-ready{backdrop-filter:none!important}:root[data-surface="glass"] .card,:root[data-surface="glass"] .panel,:root[data-surface="glass"] .metrics article,:root[data-surface="glass"] .catalog-controls,:root[data-surface="glass"] .date-filter,:root[data-surface="glass"] .sales-summary>div{backdrop-filter:none!important;background:color-mix(in srgb,var(--surface) 92%,var(--accent) 8%)}.card,.panel,.metrics article,.catalog-controls,.date-filter,.sales-summary>div{transition:none}}
+
+/* Keep the scrollable day chart from widening and scaling the whole overview page. */
+.overview-page,.metrics,.analytics-grid,.analytics-grid>*,.insights{width:100%;min-width:0}.daily-chart{width:100%;min-width:0;max-width:100%}
+@media(max-width:720px){.overview-page{overflow-x:clip}.analytics-grid{grid-template-columns:minmax(0,1fr)}.metrics{grid-template-columns:repeat(2,minmax(0,1fr))}.insights{grid-template-columns:repeat(2,minmax(0,1fr))}}
