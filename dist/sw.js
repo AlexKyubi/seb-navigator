@@ -1,4 +1,4 @@
-const CACHE = "seb-navigator-v27";
+const CACHE = "seb-navigator-v28";
 const ASSETS = ["./", "./auth.html", "./index.html", "./overview.html", "./sales.html", "./assets/shared.css", "./assets/core.js", "./assets/commission.js", "./assets/auth.js", "./assets/catalog.js", "./assets/overview.js", "./assets/sales.js", "./assets/xlsx.full.min.js", "./assets/jszip.min.js", "./manifest.webmanifest", "./icons/icon-180.png", "./icons/icon-192.png", "./icons/icon-512.png"];
 const PROTECTED = ["/data/catalog.json", "/data/commission-template.xlsx"];
 function hasLocalAccess(){return new Promise((resolve)=>{const request=indexedDB.open("seb-navigator-local",1);request.onerror=()=>resolve(false);request.onupgradeneeded=()=>resolve(false);request.onsuccess=()=>{const db=request.result;if(!db.objectStoreNames.contains("settings")){db.close();resolve(false);return}const tx=db.transaction("settings","readonly"),profile=tx.objectStore("settings").get("authorized-profile");profile.onsuccess=()=>{const value=profile.result;db.close();resolve(Boolean(value?.firstName&&value?.lastName))};profile.onerror=()=>{db.close();resolve(false)}}})}
