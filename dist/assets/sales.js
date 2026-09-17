@@ -1,4 +1,4 @@
-import{normalize,formatMoney,escapeHtml,loadContext,saveSales,saleSalary,saleRevenue,saleDate,inDateRange,startOfMonth,endOfMonth,initPageState,enableDialogBackdropClose,showFatal}from"./core.js";
+import{normalize,formatMoney,escapeHtml,loadHistoryContext as loadContext,saveSales,saleSalary,saleRevenue,saleDate,inDateRange,startOfMonth,endOfMonth,initPageState,enableDialogBackdropClose,showFatal}from"./core.js";
 
 const $=id=>document.getElementById(id);let ctx,from=startOfMonth(new Date),to=endOfMonth(new Date),query="",activeId=null,deleteArmed=false,deleteTimer;
 const iso=d=>{const x=new Date(d.getTime()-d.getTimezoneOffset()*60000);return x.toISOString().slice(0,10)};

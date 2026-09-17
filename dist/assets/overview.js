@@ -1,4 +1,4 @@
-import{loadContext,formatMoney,saleSalary,salePlanSalary,saleRevenue,saleDate,startOfMonth,endOfMonth,inDateRange,initPageState,applyTheme,enableDialogBackdropClose,showFatal,escapeHtml}from"./core.js";
+import{loadHistoryContext as loadContext,formatMoney,saleSalary,salePlanSalary,saleRevenue,saleDate,startOfMonth,endOfMonth,inDateRange,initPageState,applyTheme,enableDialogBackdropClose,showFatal,escapeHtml}from"./core.js";
 const $=id=>document.getElementById(id);let ctx,selected=startOfMonth(new Date());
 const monthValue=d=>`${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,"0")}`;
 function monthRows(offset=0){const d=new Date(selected);d.setMonth(d.getMonth()+offset);return ctx.sales.filter(s=>inDateRange(s,startOfMonth(d),endOfMonth(d)))}
