@@ -54,6 +54,11 @@ for values in catalog_ws.iter_rows(min_row=2, values_only=True):
     record = {name: values[column - 1] for name, column in catalog_headers.items()}
     sulpak_article = str(record.get("Артикул") or "").strip()
     mechta_article = str(record.get("Mechta.code") or "").strip()
+    # mechta.kz always shows articles zero-padded to 5 digits (e.g. "02171"),
+    # but Excel stores the cell as a number and drops the leading zeros.
+    # Pad back so it matches the real site/search-by-article expectation.
+    if mechta_article.isdigit():
+        mechta_article = mechta_article.zfill(5)
     if not sulpak_article and not mechta_article:
         continue
     # Stable internal key used for sales history, relation map and DOM identity.
