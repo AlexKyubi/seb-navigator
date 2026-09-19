@@ -1,5 +1,6 @@
 export const APP_VERSION="1.0.0",DATA_SCHEMA_VERSION=2,DB_NAME="seb-navigator-local",STORE="settings",SALES_KEY="sales-records",DATASET_KEY="commission-dataset",RAW_WORKBOOK_KEY="commission-workbook",AUTH_KEY="authorized-profile",SCHEMA_KEY="data-schema-version";
 export const normalize=v=>String(v??"").toUpperCase().replace(/[^A-Z0-9А-ЯЁ]/g,"");
+export const articleLabel=p=>{const parts=[];if(p?.sulpakArticle)parts.push(`S:${p.sulpakArticle}`);if(p?.mechtaArticle)parts.push(`M:${p.mechtaArticle}`);return parts.join(" ")||p?.article||""};
 const moneyFormatter=new Intl.NumberFormat("ru-RU",{maximumFractionDigits:0}),percentFormatter=new Intl.NumberFormat("ru-RU",{style:"percent",maximumFractionDigits:1});
 export const formatMoney=v=>`${moneyFormatter.format(Number(v)||0)} ₸`;
 export const formatPercent=v=>percentFormatter.format(Number(v)||0);
