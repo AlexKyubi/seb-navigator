@@ -1,7 +1,26 @@
+# Инструменты и сборка — сайту нужен только dist/
 node_modules/
 .artifacts/
 Trash/
 /Data/
+/outputs/
+
+# Кэши/временные файлы
+__pycache__/
+*.pyc
+*.pyo
+*.tmp
 *.log
+~$*.xlsx
+~$*.xls
+
+# Редакторы/ОС
+.vscode/
+.idea/
 .DS_Store
 Thumbs.db
+
+# Секреты/локальные оверрайды (если появятся)
+.env
+.env.local
+.env.*.local

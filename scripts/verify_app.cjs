@@ -52,4 +52,10 @@ for (const row of rows) {
 }
 const result = { parsedRows: rows.length, matchedArticles: matched.size, unmatchedRows: unmatched, ambiguousRows: ambiguous };
 console.log(JSON.stringify(result));
-if (result.parsedRows !== 222 || result.matchedArticles !== 172 || result.ambiguousRows !== 0) process.exitCode = 1;
+// Baseline raised 2026-09-19: 150 Mechta-only products were added to the
+// catalog; matchedArticles grew from 172 to 185 because 13 of them have a
+// real Tefal/Rowenta model code in their title that legitimately matches a
+// Comm.Code row in this reference commissions file (verified by hand —
+// e.g. C4250413 -> "Сковорода TEFAL C4250413 24 RENEW"). unmatchedRows
+// dropped from 50 to 37 accordingly; parsedRows/ambiguousRows are unchanged.
+if (result.parsedRows !== 222 || result.matchedArticles !== 185 || result.ambiguousRows !== 0) process.exitCode = 1;
