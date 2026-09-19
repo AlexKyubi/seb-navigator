@@ -31,7 +31,13 @@ for (const sheetName of workbook.SheetNames) {
   });
 }
 
-const products = JSON.parse(fs.readFileSync("dist/data/catalog.json", "utf8"));
+const CATALOG_OBFUSCATION_KEY = Buffer.from("seb-navigator-2026-catalog-key", "utf8");
+function deobfuscateCatalog(base64) {
+  const bytes = Buffer.from(base64, "base64");
+  for (let i = 0; i < bytes.length; i++) bytes[i] ^= CATALOG_OBFUSCATION_KEY[i % CATALOG_OBFUSCATION_KEY.length];
+  return bytes.toString("utf8");
+}
+const products = JSON.parse(deobfuscateCatalog(fs.readFileSync("dist/data/idx-7f2ae1.bin", "utf8")));
 const keyMap = new Map();
 for (const product of products) {
   const keys = new Set([normalize(product.commCode), ...(product.modelKeys || []).map(normalize)]);

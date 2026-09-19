@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import base64
 import json
 import re
 from pathlib import Path
@@ -11,6 +12,22 @@ ROOT = Path(__file__).resolve().parents[1]
 DATA_DIR = ROOT / "Data"
 DIST_DATA = ROOT / "dist" / "data"
 CATALOG_PATH = DATA_DIR / "справочникSEB.xlsx"
+
+# Obfuscation only — NOT encryption. The key ships in the public JS bundle
+# (dist/assets/core.js), so anyone reading the client code can decode this.
+# The point is to stop a casual/direct look (curl, "open in new tab", a raw
+# Network-tab response) from immediately showing a readable product list with
+# prices. Real access control still requires a server-side gate; see
+# README "Граница защиты". Filename is deliberately non-descriptive so the
+# endpoint isn't guessable from the URL alone.
+OBFUSCATION_KEY = b"seb-navigator-2026-catalog-key"
+CATALOG_OUTPUT_NAME = "idx-7f2ae1.bin"
+
+
+def obfuscate(text: str) -> str:
+    raw = text.encode("utf-8")
+    xored = bytes(b ^ OBFUSCATION_KEY[i % len(OBFUSCATION_KEY)] for i, b in enumerate(raw))
+    return base64.b64encode(xored).decode("ascii")
 
 
 def normalize(value: object) -> str:
@@ -78,5 +95,9 @@ for values in catalog_ws.iter_rows(min_row=2, values_only=True):
     )
 
 DIST_DATA.mkdir(parents=True, exist_ok=True)
-(DIST_DATA / "catalog.json").write_text(json.dumps(products, ensure_ascii=False, separators=(",", ":")), encoding="utf-8")
-print(json.dumps({"products": len(products)}, ensure_ascii=False))
+catalog_json = json.dumps(products, ensure_ascii=False, separators=(",", ":"))
+old_plain_path = DIST_DATA / "catalog.json"
+if old_plain_path.exists():
+    old_plain_path.unlink()  # retired: was served as plain readable JSON
+(DIST_DATA / CATALOG_OUTPUT_NAME).write_text(obfuscate(catalog_json), encoding="ascii")
+print(json.dumps({"products": len(products), "output": CATALOG_OUTPUT_NAME}, ensure_ascii=False))
