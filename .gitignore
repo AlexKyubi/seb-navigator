@@ -4,6 +4,7 @@ node_modules/
 Trash/
 /Data/
 /outputs/
+/video/
 
 # Кэши/временные файлы
 __pycache__/
