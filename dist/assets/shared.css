@@ -48,9 +48,24 @@ body::before,body::after{z-index:0}.page{position:relative;z-index:1}
   .head-action{max-width:58%;white-space:normal;line-height:1.15}
   .catalog-controls{grid-template-columns:minmax(0,1fr)}
   .catalog-controls .search,.catalog-controls select,.catalog-controls .switch{grid-column:1;width:100%;min-width:0}
-  .catalog-grid,:root[data-size="small"] .catalog-grid,:root[data-size="medium"] .catalog-grid,:root[data-size="large"] .catalog-grid{grid-template-columns:minmax(0,1fr)}
-  .product-photo,:root[data-size="small"] .product-photo,:root[data-size="large"] .product-photo{height:min(72vw,310px)}
-  .card h2{height:auto;min-height:2.7em;font-size:1rem}
+  :root[data-size="small"] .catalog-grid{grid-template-columns:repeat(4,minmax(0,1fr));gap:6px}
+  :root[data-size="medium"] .catalog-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}
+  :root[data-size="large"] .catalog-grid{grid-template-columns:minmax(0,1fr)}
+  :root[data-size="small"] .product-photo{height:92px;padding:4px}
+  :root[data-size="medium"] .product-photo{height:185px}
+  :root[data-size="large"] .product-photo{height:min(72vw,310px)}
+  :root[data-size="small"] .card-body{padding:6px}
+  :root[data-size="small"] .category{font-size:.55rem}
+  :root[data-size="small"] .article-row{gap:2px;flex-wrap:wrap}
+  :root[data-size="small"] .article-chip{padding:2px 4px;font-size:.5rem}
+  :root[data-size="small"] .card h2{height:3.6em;font-size:.6rem}
+  :root[data-size="medium"] .card h2,:root[data-size="large"] .card h2{height:auto;min-height:2.7em}
+  :root[data-size="small"] .model{font-size:.55rem;margin:4px 0 6px}
+  :root[data-size="small"] .rates{grid-template-columns:1fr;gap:3px}
+  :root[data-size="small"] .rate{padding:5px}
+  :root[data-size="small"] .rate span{font-size:.5rem}
+  :root[data-size="small"] .rate b{font-size:.65rem}
+  :root[data-size="small"] .add-sale{min-height:30px;margin-top:5px;font-size:.58rem}
   .metrics,.insights,.sales-summary{grid-template-columns:minmax(0,1fr)}
   .overview-title{align-items:flex-end}
   body[data-page="overview"] .app-head .brand span{display:none}
