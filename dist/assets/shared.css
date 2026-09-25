@@ -40,3 +40,31 @@ body::before,body::after{z-index:0}.page{position:relative;z-index:1}
 
 /* Fade the sticky catalog tools only while they cover products. */
 @media(max-width:720px){.catalog-controls{opacity:1;transition:opacity .2s ease,background-color .2s ease!important}.catalog-controls.is-scrolled{opacity:.3;background:color-mix(in srgb,var(--surface) 32%,transparent);box-shadow:0 8px 18px #0002}.catalog-controls.is-scrolled input,.catalog-controls.is-scrolled select,.catalog-controls.is-scrolled .switch{background:color-mix(in srgb,var(--surface2) 28%,transparent)}.catalog-controls.is-scrolled:active{opacity:.72}}
+
+/* True phone layout: avoid shrinking a desktop grid into a narrow viewport. */
+@media(max-width:520px){
+  .app-head{gap:8px;padding-inline:12px}
+  .brand{min-width:0}
+  .head-action{max-width:58%;white-space:normal;line-height:1.15}
+  .catalog-controls{grid-template-columns:minmax(0,1fr)}
+  .catalog-controls .search,.catalog-controls select,.catalog-controls .switch{grid-column:1;width:100%;min-width:0}
+  .catalog-grid,:root[data-size="small"] .catalog-grid,:root[data-size="medium"] .catalog-grid,:root[data-size="large"] .catalog-grid{grid-template-columns:minmax(0,1fr)}
+  .product-photo,:root[data-size="small"] .product-photo,:root[data-size="large"] .product-photo{height:min(72vw,310px)}
+  .card h2{height:auto;min-height:2.7em;font-size:1rem}
+  .metrics,.insights,.sales-summary{grid-template-columns:minmax(0,1fr)}
+  .overview-title{align-items:flex-end}
+  body[data-page="overview"] .app-head .brand span{display:none}
+  .period-control{min-width:0;gap:3px}
+  .period-control button{flex:0 0 34px;width:34px}
+  .month-picker{width:126px;min-width:0}
+  .month-picker span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:.68rem}
+  .overview-title{display:grid;grid-template-columns:minmax(0,1fr);gap:10px}
+  .overview-title .secondary{width:100%}
+  .date-filter,.sales-tools{grid-template-columns:minmax(0,1fr)}
+  .date-filter>label,.sales-tools .search,.sales-tools .secondary{grid-column:1;width:100%}
+  .sale-row{grid-template-columns:minmax(0,1fr) auto 18px}
+  .sale-row .sale-main{grid-column:1/-1}
+  .sale-row .sale-status{grid-column:1;grid-row:2}
+  .sale-row .salary{grid-column:2;grid-row:2}
+  .edit-mark{grid-column:3;grid-row:2}
+}

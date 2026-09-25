@@ -45,7 +45,10 @@ def find_column(headers: dict[str, int], *needles: str) -> int | None:
     return None
 
 
-catalog_wb = openpyxl.load_workbook(CATALOG_PATH, read_only=True, data_only=True)
+# Use normal mode here. Workbooks exported by the repository's spreadsheet
+# tooling may legitimately omit the cached worksheet dimension; openpyxl's
+# read-only iterator then yields short rows even though all cells are present.
+catalog_wb = openpyxl.load_workbook(CATALOG_PATH, read_only=False, data_only=True)
 catalog_ws = catalog_wb.active
 catalog_headers = {str(cell.value).strip(): cell.column for cell in catalog_ws[1] if cell.value is not None}
 
