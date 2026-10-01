@@ -64,4 +64,8 @@ console.log(JSON.stringify(result));
 // Comm.Code row in this reference commissions file (verified by hand —
 // e.g. C4250413 -> "Сковорода TEFAL C4250413 24 RENEW"). unmatchedRows
 // dropped from 50 to 37 accordingly; parsedRows/ambiguousRows are unchanged.
-if (result.parsedRows !== 222 || result.matchedArticles !== 185 || result.ambiguousRows !== 0) process.exitCode = 1;
+// Baseline 185 -> 191 (2026-10-01): the committed 996-product catalog already
+// matched 187 (earlier additions never re-baselined this test); adding
+// S:654973/IZ7010F0, S:654972/IZ7021F0, S:633092/G713SB45 and S:641729/DD94G8F0
+// from Sulpak autocomplete adds exactly those 4 commission matches, no losses.
+if (result.parsedRows !== 222 || result.matchedArticles !== 191 || result.ambiguousRows !== 0) process.exitCode = 1;
