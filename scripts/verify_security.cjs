@@ -13,6 +13,7 @@ function deobfuscateCatalog(base64){const bytes=Buffer.from(base64,"base64");for
 const catalog=JSON.parse(deobfuscateCatalog(read("data/idx-7f2ae1.bin")));
 if(!Array.isArray(catalog)||catalog.length<1)failures.push("catalog is empty");
 const articles=new Set();for(const[index,item]of catalog.entries()){if(!item?.article||!item?.title)failures.push(`catalog row ${index+1}: required value missing`);if(articles.has(item.article))failures.push(`duplicate article ${item.article}`);articles.add(item.article)}
+let promoCount=0;if(fs.existsSync(path.join(dist,"data/promo.bin"))){try{const promo=JSON.parse(deobfuscateCatalog(read("data/promo.bin")));if(!promo||typeof promo.prices!=="object"||!promo.prices)failures.push("promo.bin: prices object missing");else for(const[key,value]of Object.entries(promo.prices)){promoCount++;if(!articles.has(key))failures.push(`promo.bin: unknown article ${key}`);if(!(Number(value)>0))failures.push(`promo.bin: bad price for ${key}`)}}catch{failures.push("promo.bin: unreadable")}}
 if(fs.existsSync(path.join(dist,"data/default-commissions.json")))failures.push("default commission dataset must not be public");
 if(fs.existsSync(path.join(dist,"data/catalog.json")))failures.push("plain readable catalog.json must not be published (use the obfuscated file)");
 const headers=read("_headers"),sw=read("sw.js"),allCode=Object.values(pages).map(read).join("\n")+read("assets/core.js")+read("assets/commission.js");
@@ -22,4 +23,4 @@ const publicAuth=read("auth.html")+read("assets/auth.js");if(/Comm\.Code|дву�
 if(/\beval\s*\(|new Function\s*\(/.test(allCode))failures.push("unsafe dynamic code execution detected");
 const maps=[];for(const dir of[dist,path.join(dist,"assets")])for(const name of fs.readdirSync(dir))if(name.endsWith(".map"))maps.push(name);if(maps.length)failures.push(`source maps found: ${maps.join(", ")}`);
 if(failures.length){console.error(failures.join("\n"));process.exit(1)}
-console.log(JSON.stringify({pages:Object.keys(pages).length,products:catalog.length,uniqueArticles:articles.size,securityHeaders:true,authorizationGate:true,sourceMaps:0}));
+console.log(JSON.stringify({pages:Object.keys(pages).length,products:catalog.length,uniqueArticles:articles.size,promoPrices:promoCount,securityHeaders:true,authorizationGate:true,sourceMaps:0}));
